@@ -1,0 +1,178 @@
+
+@import "tailwindcss";
+
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+    name: "skyblue-light";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+    
+    /* Base colors - Light sky blues like daytime sky */
+    --color-base-100: oklch(96% 0.02 220);        /* Very light sky blue */
+    --color-base-200: oklch(92% 0.03 215);        /* Light blue-gray */
+    --color-base-300: oklch(88% 0.04 210);        /* Slightly darker sky blue */
+    --color-base-content: oklch(20% 0.03 230);    /* Dark blue-gray text */
+    
+    /* Primary - Vibrant sky blue */
+    --color-primary: oklch(55% 0.18 230);         /* Medium sky blue */
+    --color-primary-content: oklch(98% 0.01 230); /* White with blue hint */
+    
+    /* Secondary - Deeper blue */
+    --color-secondary: oklch(45% 0.15 250);       /* Deeper blue */
+    --color-secondary-content: oklch(95% 0.02 250);
+    
+    /* Accent - Bright cyan sky */
+    --color-accent: oklch(65% 0.20 200);          /* Bright cyan-blue */
+    --color-accent-content: oklch(15% 0.05 200);  /* Dark for contrast */
+    
+    /* Neutral - Medium blue-gray */
+    --color-neutral: oklch(75% 0.04 225);
+    --color-neutral-content: oklch(25% 0.03 225);
+    
+    /* Status colors with blue undertones */
+    --color-info: oklch(60% 0.16 220);            /* Medium blue info */
+    --color-info-content: oklch(95% 0.02 220);
+    
+    --color-success: oklch(55% 0.15 160);         /* Blue-green success */
+    --color-success-content: oklch(95% 0.02 160);
+    
+    --color-warning: oklch(65% 0.16 80);          /* Warm amber */
+    --color-warning-content: oklch(15% 0.06 80);
+    
+    --color-error: oklch(58% 0.18 20);            /* Red with blue undertone */
+    --color-error-content: oklch(95% 0.02 20);
+    
+    /* Border radius for smooth sky-like transitions */
+    --radius-selector: 0.75rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;     /* Less depth for light theme */
+    --noise: 0.05;  /* Minimal texture */
+}
+
+/* Define the exact palette colors */
+:root {
+  --sunset-dark-blue: #0b5e81;    /* Deep ocean blue */
+  --sunset-medium-blue: #4e7fa2;  /* Medium sky blue */
+  --sunset-light-blue: #84a0ba;   /* Light sky blue */
+  --sunset-peach: #e9bb93;        /* Warm peach */
+  --sunset-coral: #bd6868;        /* Coral salmon */
+  --sunset-mauve: #87565e;        /* Dark mauve */
+  --navbar-purple: #a38aa4;       /* Navbar purple */
+  --sky-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add smooth transitions to all interactive elements */
+.btn, .input, .select, .textarea, .card {
+  transition: var(--sky-transition);
+}
+
+/* NAVBAR STYLING */
+.navbar, 
+nav,
+.navbar-start,
+.navbar-center,
+.navbar-end,
+header nav,
+[role="navigation"] {
+  background-color: #a38aa4 !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Navbar text colors for good contrast */
+.navbar a,
+.navbar button,
+.navbar .btn,
+nav a,
+nav button,
+nav .btn {
+  color: white;
+  transition: var(--sky-transition);
+}
+
+.navbar a:hover,
+.navbar button:hover,
+.navbar .btn:hover,
+nav a:hover,
+nav button:hover,
+nav .btn:hover {
+  color: #f0f0f0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+}
+
+/* Navbar brand/logo styling */
+.navbar-brand,
+.navbar .brand,
+nav .brand {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Exact Sunset Palette Gradient */
+body {
+  background: linear-gradient(180deg, 
+    #0b5e81 0%,      /* Dark blue (top) */
+    #4e7fa2 20%,     /* Medium blue */
+    #84a0ba 40%,     /* Light blue */
+    #e9bb93 60%,     /* Warm peach */
+    #bd6868 80%,     /* Coral */
+    #87565e 100%     /* Dark mauve (bottom) */
+  );
+}
+
+/* Alternative: Vertical sunset bands */
+.vertical-sunset {
+  background: linear-gradient(180deg, 
+    #0b5e81 0%,      /* Dark blue (top) */
+    #4e7fa2 20%,     /* Medium blue */
+    #84a0ba 40%,     /* Light blue */
+    #e9bb93 60%,     /* Warm peach */
+    #bd6868 80%,     /* Coral */
+    #87565e 100%     /* Dark mauve (bottom) */
+  );
+
+}
+
+/* Shadows using palette colors */
+.card, .btn {
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, #4e7fa2 30%, transparent), 
+              0 2px 4px -1px color-mix(in srgb, #84a0ba 20%, transparent);
+}
+
+/* Optional: Gentle sunset animation */
+@keyframes palette-sunset-flow {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+}
+
+.animated-palette-sunset {
+  background-size: 200% 200%;
+  animation: palette-sunset-flow 25s ease-in-out infinite;
+}
+
+/* Optional: Individual color utilities */
+.bg-sunset-dark-blue { background-color: #0b5e81; }
+.bg-sunset-medium-blue { background-color: #4e7fa2; }
+.bg-sunset-light-blue { background-color: #84a0ba; }
+.bg-sunset-peach { background-color: #e9bb93; }
+.bg-sunset-coral { background-color: #bd6868; }
+.bg-sunset-mauve { background-color: #87565e; }
+.bg-navbar-purple { background-color: #a38aa4; }
+
+.text-sunset-dark-blue { color: #0b5e81; }
+.text-sunset-medium-blue { color: #4e7fa2; }
+.text-sunset-light-blue { color: #84a0ba; }
+.text-sunset-peach { color: #e9bb93; }
+.text-sunset-coral { color: #bd6868; }
+.text-sunset-mauve { color: #87565e; }
+.text-navbar-purple { color: #a38aa4; }
