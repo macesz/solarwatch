@@ -17,10 +17,10 @@ public class JwtUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${codecool.app.jwtSecret}")
+  @Value("${jwtSecret}")
   private String jwtSecret;
 
-  @Value("${codecool.app.jwtExpirationMs}")
+  @Value("${jwtExpirationMs}")
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
