@@ -10,13 +10,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class GeoCodingApiClient {
 
-  private final WebClient webClient;
+  private final String baseUrl;
   private final String apiKey;
+  private final WebClient webClient;
 
   public GeoCodingApiClient(
       WebClient webClient,
-      @Value("${GEOCODING_API_KEY:3c4308a7a3e66d61d8e7f4b1cc5ec4bc}") String apiKey) {
+      @Value("${GEOCODING_BASE_URL}") String baseUrl,
+      @Value("${API_KEY}") String apiKey) {
     this.webClient = webClient;
+    this.baseUrl = baseUrl;
     this.apiKey = apiKey;
   }
 
@@ -33,7 +36,7 @@ public class GeoCodingApiClient {
         stateCode != null ? city + "," + countryCode + "," + stateCode : city + "," + countryCode;
 
     String url =
-        UriComponentsBuilder.fromUriString("http://api.openweathermap.org/geo/1.0/direct")
+        UriComponentsBuilder.fromUriString(baseUrl)
             .queryParam("q", combinedLocation)
             .queryParam("limit", 1)
             .queryParam("appid", apiKey)
