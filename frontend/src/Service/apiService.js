@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerUser = async (user) => {
   try {
     const response = await axios.post("/api/user/register", user);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Registration error:", error);
     throw error;
