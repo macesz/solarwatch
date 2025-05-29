@@ -1,7 +1,7 @@
 
 # SolarWatch
 
-[![CI Pipeline](https://github.com/your-username/solarwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/solarwatch/actions/workflows/maven.yml)
+[![CI Pipeline](https://github.com/macesz/solarwatch/actions/workflows/maven.yml/badge.svg)](https://github.com/macesz/solarwatch/actions/workflows/maven.yml)
 
 <details>
 <summary><h2><strong>Table of Contents</strong></h2></summary>
