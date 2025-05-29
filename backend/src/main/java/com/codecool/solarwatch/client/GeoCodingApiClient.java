@@ -12,12 +12,15 @@ public class GeoCodingApiClient {
 
   private final WebClient webClient;
   private final String apiKey;
+  private final String baseUrl;
 
   public GeoCodingApiClient(
       WebClient webClient,
-      @Value("${GEOCODING_API_KEY:3c4308a7a3e66d61d8e7f4b1cc5ec4bc}") String apiKey) {
+      @Value("${API_KEY}") String apiKey,
+      @Value("${GEOCODING_BASE_URL}") String baseUrl) {
     this.webClient = webClient;
     this.apiKey = apiKey;
+    this.baseUrl = baseUrl;
   }
 
   /**
@@ -33,7 +36,7 @@ public class GeoCodingApiClient {
         stateCode != null ? city + "," + countryCode + "," + stateCode : city + "," + countryCode;
 
     String url =
-        UriComponentsBuilder.fromUriString("http://api.openweathermap.org/geo/1.0/direct")
+        UriComponentsBuilder.fromUriString(baseUrl)
             .queryParam("q", combinedLocation)
             .queryParam("limit", 1)
             .queryParam("appid", apiKey)

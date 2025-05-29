@@ -2,6 +2,7 @@ package com.codecool.solarwatch.client;
 
 import com.codecool.solarwatch.model.SolarWatchReport;
 import java.time.LocalDate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,9 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class SunriseSunsetApiClient {
 
   private final WebClient webClient;
+  private final String baseUrl;
 
-  public SunriseSunsetApiClient(WebClient webClient) {
+  public SunriseSunsetApiClient(
+      WebClient webClient, @Value("${SUNRISESUNSET_BASE_URL}") String baseUrl) {
     this.webClient = webClient;
+    this.baseUrl = baseUrl;
   }
 
   /**
@@ -29,7 +33,7 @@ public class SunriseSunsetApiClient {
   public SolarWatchReport getSunriseSunsetByCoordinates(
       double latitude, double longitude, LocalDate date) {
     String url =
-        UriComponentsBuilder.fromUriString("https://api.sunrise-sunset.org/json")
+        UriComponentsBuilder.fromUriString(baseUrl)
             .queryParam("lat", String.format("%.1f", latitude))
             .queryParam("lng", String.format("%.1f", longitude))
             .queryParam("date", date.toString())
