@@ -10,17 +10,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class GeoCodingApiClient {
 
-  private final String baseUrl;
-  private final String apiKey;
   private final WebClient webClient;
+  private final String apiKey;
+  private final String baseUrl;
 
   public GeoCodingApiClient(
       WebClient webClient,
-      @Value("${GEOCODING_BASE_URL}") String baseUrl,
-      @Value("${API_KEY}") String apiKey) {
+      @Value("${API_KEY}") String apiKey,
+      @Value("${GEOCODING_BASE_URL}") String baseUrl) {
     this.webClient = webClient;
-    this.baseUrl = baseUrl;
     this.apiKey = apiKey;
+    this.baseUrl = baseUrl;
   }
 
   /**

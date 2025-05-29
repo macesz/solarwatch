@@ -1,6 +1,7 @@
 package com.codecool.solarwatch.client;
 
-import com.codecool.solarwatch.controller.dto.SunriseSunsetResponseDTO;
+import com.codecool.solarwatch.model.SolarWatchReport;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -22,24 +23,20 @@ public class SunriseSunsetApiClient {
   }
 
   /**
-   * Call external API to get the sunrise/sunset times according to geo-coordinates of a city.
+   * Call Sunrise-Sunset API to get sunrise/sunset times for coordinates.
    *
-   * @param lat Latitude
-   * @param lng Longitude
-   * @param date The date the requested sunrise/sunset times.
-   * @param tzid Time Zone ID.
-   * @param formatted 0: ZonedDateTime format, 1: YYYY-MM-DD-hhss format.
-   * @return SunriseSunsetResponseDTO, results are extracted with SunriseSunsetDTO.
+   * @param latitude Latitude
+   * @param longitude Longitude
+   * @param date Date for sunrise/sunset data
+   * @return SolarWatchReport containing sunrise/sunset times
    */
-  public SunriseSunsetResponseDTO getSunriseSunsetByCoordinates(
-      double lat, double lng, String date, String tzid, int formatted) {
+  public SolarWatchReport getSunriseSunsetByCoordinates(
+      double latitude, double longitude, LocalDate date) {
     String url =
         UriComponentsBuilder.fromUriString(baseUrl)
-            .queryParam("lat", lat)
-            .queryParam("lng", lng)
-            .queryParam("date", date)
-            .queryParam("tzid", tzid)
-            .queryParam("formatted", formatted)
+            .queryParam("lat", String.format("%.1f", latitude))
+            .queryParam("lng", String.format("%.1f", longitude))
+            .queryParam("date", date.toString())
             .build()
             .toUriString();
 
@@ -49,11 +46,12 @@ public class SunriseSunsetApiClient {
           .uri(url)
           .accept(MediaType.APPLICATION_JSON)
           .retrieve()
-          .bodyToMono(SunriseSunsetResponseDTO.class)
+          .bodyToMono(SolarWatchReport.class)
           .block();
-
     } catch (WebClientResponseException ex) {
-      throw new ResponseStatusException(ex.getStatusCode(), ex.getResponseBodyAsString());
+      throw new ResponseStatusException(
+          ex.getStatusCode(),
+          "Failed to fetch sunrise/sunset data: " + ex.getResponseBodyAsString());
     }
   }
 }
